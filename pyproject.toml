@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "kur0bot-server"
+version = "1.0.0"
+description = "The dashboard server thing for kur0bot"
+authors = ["jericjan <cantilfrederick@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Quart = "^0.20.0"
+Quart-Discord = "^2.1.4"
+python-dotenv = "^1.0.1"
+pymongo = "^4.11"
+motor = "^3.7.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1>Hello, {{user.name}}!</h1>
+    <p>Submit your links to add them to k.sex and k.footjob!!!</p>
+    <p>
+      Discord links are fine, just don't include the expiry shit at the end of
+      the URL.<br />Tenor links should be <b>direct GIF links</b>.
+    </p>
+
+    <h3>Sex GIFs:</h3>
+
+    <input type="text" id="sex-input" placeholder="Enter something..." />
+    <button onclick="sendSex()">Send</button>
+
+    <div id="sex" class="gifs">
+      {% for data in sex_urls %}
+      <div>
+        <img data-id="{{ data._id }}" src="{{ data.url }}" />
+        <div><button>Delete</button></div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <h3>Footjob GIFs:</h3>
+
+    <input type="text" id="footjob-input" placeholder="Enter something..." />
+    <button onclick="sendFootjob()">Send</button>
+
+    <div id="footjob" class="gifs">
+      {% for data in footjob_urls %}
+      <div>
+        <img data-id="{{ data._id }}" src="{{ data.url }}" />
+        <div><button>Delete</button></div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <script>
+      function sendSex() {
+        const input = document.getElementById("sex-input").value;
+        fetch("add-sex", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: input }),
+        })
+          .then((response) => response.text())
+          .then((data) => alert("Sex sent!"))
+          .catch((error) => console.error("Error:", error));
+      }
+
+      function sendFootjob() {
+        const input = document.getElementById("footjob-input").value;
+        fetch("add-footjob", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: input }),
+        })
+          .then((response) => response.text())
+          .then((data) => alert("Footjob sent!"))
+          .catch((error) => console.error("Error:", error));
+      }
+
+      function removeGif(elem, endpoint, name) {
+        doDelete = confirm("Sure you wanna delete this GIF?");
+        if (!doDelete){
+          return;
+        }
+
+        gifId = elem.parentElement.previousElementSibling.dataset.id;
+        fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ _id: gifId }),
+        })
+          .then((response) => response.text())
+          .then((data) => alert(`${name} removed!`))
+          .catch((error) => console.error("Error:", error));
+      }
+
+      document.querySelectorAll("#sex > div > div > button").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          removeGif(e.target, "remove-sex", "Sex");
+        });
+      });
+
+      document
+        .querySelectorAll("#footjob > div > div > button")
+        .forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            removeGif(e.target, "remove-footjob", "Footjob");
+          });
+        });
+    </script>
+  </body>
+</html>

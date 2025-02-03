@@ -1,0 +1,21 @@
+img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.gifs > div {
+    display: inline-flex;
+    background-color: black;
+}
+
+.gifs > div > img {
+	opacity: 0;
+}
+
+.gifs > div > img:hover {
+	opacity: 1;
+}
+
+.gifs > div > div > button {
+	height: 100%;
+}
