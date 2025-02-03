@@ -595,7 +595,7 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "6d5916bf544e97c53b8b5df3e15599825aa3dec49551deb04efc3a79fc53b822"
+content-hash = "39bc1a0a720fa7b4bc3ad16124d51920094c376fbd2f50bca17404c566598e70"
 
 [metadata.files]
 aiofiles = [
