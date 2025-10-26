@@ -7,6 +7,7 @@
       href="{{ url_for('static', filename='styles.css') }}"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href='https://fonts.googleapis.com/css?family=Lexend Deca' rel='stylesheet'>
   </head>
   <body>
     <h1>Hello, {{user.name}}!</h1>
@@ -18,28 +19,31 @@
 
     <h3>Sex GIFs:</h3>
 
-    <input type="text" id="sex-input" placeholder="Enter something..." />
-    <button onclick="sendSex()">Send</button>
-
+	<div class="search">
+		<input type="text" id="sex-input" placeholder="Enter something..." />
+		<button onclick="sendSex()">Send</button>
+	</div>
     <div id="sex" class="gifs">
       {% for data in sex_urls %}
       <div>
-        <img data-id="{{ data._id }}" src="{{ data.url }}" />
-        <div><button>Delete</button></div>
+        <div><img src="{{ data.url }}" /></div>
+        <div><button data-id="{{ data._id }}" >Delete</button></div>
       </div>
       {% endfor %}
     </div>
 
     <h3>Footjob GIFs:</h3>
 
-    <input type="text" id="footjob-input" placeholder="Enter something..." />
-    <button onclick="sendFootjob()">Send</button>
-
+	<div class="search">
+		<input type="text" id="footjob-input" placeholder="Enter something..." />
+		<button onclick="sendFootjob()">Send</button>
+	</div>
+	
     <div id="footjob" class="gifs">
       {% for data in footjob_urls %}
       <div>
-        <img data-id="{{ data._id }}" src="{{ data.url }}" />
-        <div><button>Delete</button></div>
+        <div><img src="{{ data.url }}" /></div>
+        <div><button data-id="{{ data._id }}" >Delete</button></div>
       </div>
       {% endfor %}
     </div>
@@ -79,7 +83,7 @@
           return;
         }
 
-        gifId = elem.parentElement.previousElementSibling.dataset.id;
+        gifId = elem.dataset.id;
         fetch(endpoint, {
           method: "POST",
           headers: {
